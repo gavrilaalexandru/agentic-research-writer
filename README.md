@@ -1,6 +1,6 @@
 # Agentic Research Writer
 
-A multi-agent system built with Google's Agent Development Kit (ADK) that coordinates specialized AI agents to research topics on the web and generate professional content.
+A multi-agent system built with Google's Agent Development Kit (ADK) that coordinates specialized AI agents to research topics on the web and local files and generate professional content.
 
 **ITSS Back to School 2025 - AI Challenge**
 
@@ -8,10 +8,10 @@ A multi-agent system built with Google's Agent Development Kit (ADK) that coordi
 
 This project demonstrates an intelligent multi-agent architecture where:
 - A **Coordinator Agent** orchestrates the workflow
-- A **Research Agent** searches the web for current information
+- A **Research Agent** searches the web for current information and reads documents from a local file system.
 - A **Writer Agent** creates professional emails, newsletters, and documents
 
-The agents collaborate seamlessly to transform user requests into well-researched, professionally written content.
+The agents collaborate seamlessly to transform user requests into well-researched, professionally written content, drawing from both online and local sources.
 
 ## Architecture
 
@@ -19,7 +19,7 @@ The agents collaborate seamlessly to transform user requests into well-researche
 User Request
     ↓
 Coordinator Agent (orchestrator)
-    ├──> Research Agent (web search)
+    ├──> Research Agent (web search & local file access)
     └──> Writer Agent (content creation)
     ↓
 Final Output (email/document)
@@ -34,6 +34,7 @@ Final Output (email/document)
 
 **2. Research Agent**
 - Uses Google Search to find current information
+- Accesses a local file system to list directories and read files
 - Collects data, statistics, and trends
 - Returns structured research results
 
@@ -166,6 +167,8 @@ demo/
         __init__.py          # Package initializer
         agent.py             # Multi-agent system implementation
         .env                 # Environment configuration
+test_research_files/         # Directory for local file research
+    project_notes.txt
 ```
 
 **__init__.py:**
@@ -176,6 +179,16 @@ from . import agent
 **agent.py:** Contains the complete multi-agent implementation (provided in this repository)
 
 ## Usage
+
+### Set Up the Research Directory
+
+Before running the application, you must create the directory the research_agent will use.
+
+```bash
+mkdir test_research_files
+echo "Project Chimera is a multi-agent system focused on Q4 2025 goals." > test_research_files/project_notes.txt
+```
+
 
 ### Running the Web Interface
 
@@ -209,6 +222,13 @@ Write an email about AI in healthcare
 Create a newsletter about solar energy innovations
 ```
 
+**Local File System Research:**
+```
+What files are in the local research directory?
+Summarize the document 'project_notes.txt' for me.
+Write a report based on the information in project_notes.txt.
+```
+
 **Research Report:**
 ```
 Write a report on cybersecurity trends for 2025
@@ -225,13 +245,14 @@ Generate a professional email about the impact of AI in education, including rec
 - **Google ADK**: Agent orchestration framework
 - **Gemini 2.5 Flash**: Large language model
 - **Google Search**: Built-in web search tool
-- **Python 3.12**: Implementation language
+- **Model Context Protocol (MCP)**: For integrating the local file system tool.
+- **Python 3.14**: Implementation language
 
 
 ## Agent Configuration
 
 All agents use the `gemini-2.5-flash` model:
 
-- **Research Agent**: `Agent` type with `google_search` tool
+- **Research Agent**: `Agent` type with `google_search` tool and `MCPToolset` for file system access
 - **Writer Agent**: `LlmAgent` type for content generation
 - **Coordinator Agent**: `LlmAgent` type with `AgentTool` wrappers

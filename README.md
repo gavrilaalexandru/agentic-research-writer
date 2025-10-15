@@ -1,4 +1,4 @@
-# multi-agent-email-generator
+# agentic-research-writer
 
 ## Workflow Overview
 

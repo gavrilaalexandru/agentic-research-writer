@@ -23,20 +23,19 @@ a aduna informatii, iar mai apoi apeleaza writer_agent pentru a scrise emailul.
 Criteriile de selectie sunt definite explicit in instructiunile (instruction) agentului coordinator_agent, in sectiunea DECISION CRITERIA:
 
 research_agent este selectat atunci cand:
-Cererea utilizatorului implica un subiect nou sau de actualitate care necesita colectarea de informatii (fie de pe web, fie din fisierele locale). 
-Acesta este intotdeauna primul pas intr-un flux de lucru standard.
-Utilizatorul solicita in mod explicit mai multe informatii sau o aprofundare a unui subiect.
+  Cererea utilizatorului implica un subiect nou sau de actualitate care necesita colectarea de informatii (fie de pe web, fie din fisierele locale). Acesta este intotdeauna primul pas intr-un flux de lucru standard.
+  Utilizatorul solicita in mod explicit mai multe informatii sau o aprofundare a unui subiect.
 
 writer_agent este selectat atunci cand:
-Etapa de cercetare s-a incheiat, iar coordinator_agent detine deja informatiile necesare pentru a crea continutul final (email, raport etc.).
-Utilizatorul solicita modificari sau ajustari ale unui text deja generat, fara a necesita informatii noi.
+  Etapa de cercetare s-a incheiat, iar coordinator_agent detine deja informatiile necesare pentru a crea continutul final (email, raport etc.).
+  Utilizatorul solicita modificari sau ajustari ale unui text deja generat, fara a necesita informatii noi.
 
 3. Care sunt tool-urile activate în fiecare etapă ?
 Fluxul de lucru are mai multe etape, fiecare cu instrumentele sale specifice:
 
 Etapa de Coordonare (gestionata de coordinator_agent):
-AgentTool(agent=research_agent): Instrumentul prin care se activeaza agentul de cercetare.
-AgentTool(agent=writer_agent): Instrumentul prin care se activeaza agentul de scriere.
+  AgentTool(agent=research_agent): Instrumentul prin care se activeaza agentul de cercetare.
+  AgentTool(agent=writer_agent): Instrumentul prin care se activeaza agentul de scriere.
 
 Etapa de Cercetare (gestionata de research_agent):
 Google Search: Pentru a cauta informatii pe internet.
@@ -45,5 +44,4 @@ MCPToolset: Un set de instrumente care comunica cu un server MCP local pentru a 
   read_file: Pentru a citi continutul unui fisier specific.
 
 Etapa de Scriere (gestionata de writer_agent):
-Acest agent nu are instrumente externe activate. El se bazeaza exclusiv pe capacitatea modelului sau LLM (gemini-2.5-flash) 
-de a procesa textul si informatiile primite de la coordinator pentru a genera continutul final.
+  Acest agent nu are instrumente externe activate. El se bazeaza exclusiv pe capacitatea modelului sau LLM (gemini-2.5-flash) de a procesa textul si informatiile primite de la coordinator pentru a genera continutul final.

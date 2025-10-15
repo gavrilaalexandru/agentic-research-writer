@@ -66,3 +66,20 @@ MCPToolset: Un instrument ADK pentru integrarea cu servere externe care respecta
 
 Server MCP (Model Context Protocol): Un proces extern (npx @modelcontextprotocol/server-filesystem) pornit de ADK, 
 care expune functionalitatile sistemului de fisiere local pentru research_agent.
+
+5. Care este fluxul de comunicare între agenți ?
+Comunicarea este intotdeauna mediata de coordinator_agent. Agentii research si writer nu comunica niciodata direct intre ei.
+
+Fluxul pas cu pas:
+
+Utilizator -> Coordinator: Utilizatorul trimite o cerere (ex: "Scrie un raport despre inovatiile solare").
+
+Coordinator -> Research Agent: Coordinatorul analizeaza cererea, identifica nevoia de informatii si deleaga o sarcina clara agentului de cercetare (ex: "Cauta informatii despre inovatiile in energia solara in 2025").
+
+Research Agent -> Coordinator: Agentul de cercetare isi foloseste instrumentele (Google Search, citire fisiere), colecteaza datele, le structureaza si returneaza un rezumat catre coordinator. Acest rezultat este tratat de coordinator ca raspunsul de la un apel de instrument.
+
+Coordinator -> Writer Agent: Coordinatorul, avand acum informatiile necesare, formuleaza o noua sarcina pentru agentul de scriere, incluzand datele colectate (ex: "Scrie un raport profesionist folosind urmatoarele date: [...date de la research_agent...]").
+
+Writer Agent -> Coordinator: Agentul de scriere genereaza textul raportului si il returneaza coordinatorului.
+
+Coordinator -> Utilizator: Coordinatorul prezinta rezultatul final utilizatorului.

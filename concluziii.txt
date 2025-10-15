@@ -64,4 +64,5 @@ Google Search: Un instrument predefinit pentru cautari web.
 
 MCPToolset: Un instrument ADK pentru integrarea cu servere externe care respecta Model Context Protocol.
 
-Server MCP (Model Context Protocol): Un proces extern (npx @modelcontextprotocol/server-filesystem) pornit de ADK, care expune functionalitatile sistemului de fisiere local pentru research_agent.
+Server MCP (Model Context Protocol): Un proces extern (npx @modelcontextprotocol/server-filesystem) pornit de ADK, 
+care expune functionalitatile sistemului de fisiere local pentru research_agent.

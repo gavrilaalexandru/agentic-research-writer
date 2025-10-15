@@ -59,8 +59,78 @@ curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash -
 sudo apt-get install -y nodejs
 ```
 
+## Step 3: Install Project Dependencies
+```bash
+npm install
+```
+
+### Step 4: Install Python 3.12+
+
+```bash
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt update
+sudo apt install python3.12
+sudo apt install python3.12-venv
+```
+
+### Step 5: Set Up Virtual Environment
+
+```bash
+python3.12 -m venv myenv
+source myenv/bin/activate
+```
+
+### Step 6: Install Google ADK
+
+```bash
+pip install google-adk
+```
+
+### Step 7: Get Google API Key
+
+1. Visit [Google AI Studio](https://ai.google.dev/gemini-api/docs/api-key)
+2. Click "Get a Gemini API key in Google AI Studio"
+3. Create and copy your API key
+
+### Step 8: Configure Environment
+
+Create a `.env` file inside `multi_tool_agent/`:
+
+```bash
+GOOGLE_GENAI_USE_VERTEXAI=FALSE
+GOOGLE_API_KEY=your_api_key_here
+```
+
+---
+
+## macOS/Linux Installation
+
+### Step 1: Install Node.js
+
+**macOS (using Homebrew):**
+```bash
+brew install node
+```
+
+**Linux:**
+```bash
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash -
+sudo apt-get install -y nodejs
+```
+
+## Step 2: Install Project Dependencies
+```bash
+npm install
+```
+
 ### Step 3: Install Python 3.12+
 
+**macOS (using Homebrew):**
+```bash
+brew install python@3.12
+```
+
+**Linux:**
 ```bash
 sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt update
@@ -88,66 +158,6 @@ pip install google-adk
 3. Create and copy your API key
 
 ### Step 7: Configure Environment
-
-Create a `.env` file inside `multi_tool_agent/`:
-
-```bash
-GOOGLE_GENAI_USE_VERTEXAI=FALSE
-GOOGLE_API_KEY=your_api_key_here
-```
-
----
-
-## macOS/Linux Installation
-
-### Step 1: Install Node.js
-
-**macOS (using Homebrew):**
-```bash
-brew install node
-```
-
-**Linux:**
-```bash
-curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash -
-sudo apt-get install -y nodejs
-```
-
-### Step 2: Install Python 3.12+
-
-**macOS (using Homebrew):**
-```bash
-brew install python@3.12
-```
-
-**Linux:**
-```bash
-sudo add-apt-repository ppa:deadsnakes/ppa
-sudo apt update
-sudo apt install python3.12
-sudo apt install python3.12-venv
-```
-
-### Step 3: Set Up Virtual Environment
-
-```bash
-python3.12 -m venv myenv
-source myenv/bin/activate
-```
-
-### Step 4: Install Google ADK
-
-```bash
-pip install google-adk
-```
-
-### Step 5: Get Google API Key
-
-1. Visit [Google AI Studio](https://ai.google.dev/gemini-api/docs/api-key)
-2. Click "Get a Gemini API key in Google AI Studio"
-3. Create and copy your API key
-
-### Step 6: Configure Environment
 
 Create a `.env` file inside `multi_tool_agent/`:
 

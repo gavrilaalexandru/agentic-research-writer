@@ -2,12 +2,9 @@
 
 ## Workflow Overview
 
-User Request
-    ↓
-Coordinator Agent
-    ↓
-Research Agent (searches the web)
-    ↓
-Writer Agent (writes the email/document)
-    ↓
-Final Output
+```mermaid
+flowchart TD
+    A[User Request] --> B[Coordinator Agent]
+    B --> C[Research Agent<br/>(searches the web)]
+    C --> D[Writer Agent<br/>(writes email/document)]
+    D --> E[Final Output]

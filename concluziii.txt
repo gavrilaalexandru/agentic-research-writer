@@ -45,3 +45,23 @@ MCPToolset: Un set de instrumente care comunica cu un server MCP local pentru a 
 
 Etapa de Scriere (gestionata de writer_agent):
   Acest agent nu are instrumente externe activate. El se bazeaza exclusiv pe capacitatea modelului sau LLM (gemini-2.5-flash) de a procesa textul si informatiile primite de la coordinator pentru a genera continutul final.
+
+4. Care sunt componentele arhitecturale?
+Agenti Specializati:
+  coordinator_agent: Agentul orchestrator, punctul de intrare pentru utilizator.
+  research_agent: Agentul specializat in colectarea de date (web si local).
+  writer_agent: Agentul specializat in generarea de continut scris.
+
+Framework-ul ADK (Agent Development Kit)
+
+Modelul LLM (Gemini 2.5 Flash): "Creierul" fiecarui agent, responsabil pentru intelegerea instructiunilor, luarea deciziilor si generarea de text.
+
+Instrumente (Tools): Componente functionale pe care agentii le pot utiliza.
+
+AgentTool: Componenta cheie pentru comunicarea A2A. O clasa ADK ce permite unui agent sa trateze un alt agent ca pe un instrument.
+
+Google Search: Un instrument predefinit pentru cautari web.
+
+MCPToolset: Un instrument ADK pentru integrarea cu servere externe care respecta Model Context Protocol.
+
+Server MCP (Model Context Protocol): Un proces extern (npx @modelcontextprotocol/server-filesystem) pornit de ADK, care expune functionalitatile sistemului de fisiere local pentru research_agent.

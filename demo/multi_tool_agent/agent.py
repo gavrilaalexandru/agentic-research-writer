@@ -1,30 +1,56 @@
+import os
+
 from google.adk.agents import LlmAgent, Agent
 from google.adk.tools import google_search
 from google.adk.tools.agent_tool import AgentTool
+
+from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset
+from google.adk.tools.mcp_tool.mcp_session_manager import StdioConnectionParams
+from mcp import StdioServerParameters
+
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+TARGET_FOLDER_PATH = os.path.abspath(os.path.join(CURRENT_DIR, "../../test_research_files"))
+if not os.path.isdir(TARGET_FOLDER_PATH):
+    print(f"WARNING: The directory '{TARGET_FOLDER_PATH}' does not exist. Please create it.")
 
 research_agent = Agent(
     name='research_agent',
     model="gemini-2.5-flash",
     description=(
-        'Specialized agent in web research'
-        'Searches for and collect relevant information on any topic on the internet.'
+        'Specialized agent in web research and local file system access.'
+        'Searches for and collect relevant information on any topic on the internet and reads local files.'
     ),
     instruction="""
-    You are a research agent specialized in web research. Your tasks are:
+    You are a research agent specialized in web research and accessing local files. Your tasks are:
     1. Receive a research topic from the coordinator.
-    2. Use google_search to find current and relevant information.
-    3. Collect important data: statistics, facts, trends, and news.
-    4. Summarize the information in a clear and structured format.
-    5. Return the results to the coordinator.
+    2. Use google_search to find current and relevant information online.
+    3. **You can also access a local file system.** Use the `list_directory` and `read_file` tools to find and read relevant local documents.
+    4. Collect important data: statistics, facts, trends, and news from both web and local sources..
+    5. Summarize the information in a clear and structured format.
+    6. Return the results to the coordinator, mentioning your sources (URL or file path).
     
-    Example topics:
-    1. "AI in healthcare 2025"
-    2. "Latest trends in renewable energy"
-    3. "Cybersecurity best practices"
+    Example topics and actions:
+    - "Latest trends in renewable energy" -> Use `Google Search`.
+    - "Summarize the document 'project_notes.txt'" -> Use `read_file` with the path 'project_notes.txt'.
+    - "What research files do we have locally?" -> Use `list_directory` with the path '.'.
 
-    Focus on up-to-date, verified, and relevant information. Include sources whenever possible.
+    Focus on combining information from all available sources for the most comprehensive answer.
     """,
-    tools=[google_search],
+    tools=[
+        google_search,
+        MCPToolset(
+            connection_params=StdioConnectionParams(
+                server_params=StdioServerParameters(
+                    command='npx',
+                    args=[
+                        "-y",
+                        "@modelcontextprotocol/server-filesystem",
+                        TARGET_FOLDER_PATH,
+                    ],
+                ),
+            ),
+        ),
+    ],
 )
 
 writer_agent = LlmAgent(
